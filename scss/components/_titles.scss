@@ -1,0 +1,16 @@
+.titles {
+  height: 8rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-transform: uppercase;
+  padding: 0 40px;
+}
+
+.titles {
+  h2 {
+    font-size: 3rem;
+    color: #000;
+    align-self: center;
+  }
+}

@@ -1,0 +1,47 @@
+.footer {
+  bottom: 0;
+  padding: 10px;
+  display: block;
+  justify-content: space-between;
+  background-color: #333333;
+  color: #ffffff;
+  p {
+    margin-bottom: 0;
+  }
+  i {
+    font-size: 25px;
+    color: #ffffff;
+    padding: 0 5px;
+  }
+  a i:hover {
+    color: #bbb6b6;
+  }
+  &-linkedin {
+    text-decoration: none;
+    transition: 0.5s;
+    color: #ffffff;
+    &:hover {
+      text-decoration: none;
+      color: #bbb6b6;
+    }
+  }
+}
+.social-profiles {
+  ul {
+    margin-bottom: 0;
+    @extend .reduced-flexbox;
+  }
+  li {
+    @extend .reduced-flexbox;
+  }
+  a {
+    @extend .reduced-flexbox;
+  }
+
+  img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    margin: 10px;
+  }
+}

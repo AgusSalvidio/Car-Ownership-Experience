@@ -1,0 +1,25 @@
+.navbar img {
+  @include images(100px, 50px, cover);
+}
+.navbar-custom {
+  background-color: $main-color;
+}
+
+.offcanvas {
+  background-color: $main-color;
+}
+.offcanvas-body ul li a {
+  text-decoration: none;
+  background-color: $main-color;
+  color: #ffffff;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.dropdown-menu {
+  background-color: $main-color;
+}
+
+.dropdown-item:hover {
+  background-color: $main-color;
+}
