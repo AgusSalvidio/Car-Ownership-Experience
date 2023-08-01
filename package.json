@@ -1,0 +1,11 @@
+{
+  "name": "car-ownership-experience",
+  "version": "1.0.0",
+  "description": "Website for those car users that want to have a solid record of their ownership experience.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Agustin Salvidio",
+  "license": "MIT"
+}
