@@ -1,12 +1,11 @@
 import { ApplicationContext } from "./js/ApplicationContext/applicationContext.js";
 import { CarManagementSystem } from "./js/Car/CarManagementSystem/carManagementSystem.js";
+import { initializeDataTableEventLister } from "./js/Car/CarManagementView/carManagementTableView.js";
 import {
-  carManagementView,
-  initializeRegisterCarButtonEventListener,
-  initializeDataTableEventLister,
+  initializeAddCarButtonEventListener,
+  initializeCarManagementView,
 } from "./js/Car/CarManagementView/carManagementView.js";
-import { carRegistrationView } from "./js/Car/CarManagementView/carRegistrationModal.js";
-import { carManagementTableView } from "./js/Car/CarManagementView/carManagementTableView.js";
+import { initializeRegisterCarButtonEventListener } from "./js/Car/CarManagementView/carRegistrationModal.js";
 
 function initializeApplicationContext() {
   let context = new ApplicationContext();
@@ -14,20 +13,14 @@ function initializeApplicationContext() {
   return context;
 }
 
-function rootDiv() {
-  return document.querySelector("#root");
-}
-
 function initializeViews() {
-  let div = rootDiv();
-  div.append(carManagementView);
-  div.append(carManagementTableView);
-  div.append(carRegistrationView);
+  initializeCarManagementView();
 }
 
 function initializeEventListeners(applicationContext) {
   initializeRegisterCarButtonEventListener(applicationContext);
   initializeDataTableEventLister(applicationContext);
+  initializeAddCarButtonEventListener(applicationContext);
 }
 
 function initialize() {

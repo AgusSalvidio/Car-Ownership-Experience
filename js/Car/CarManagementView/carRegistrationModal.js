@@ -1,4 +1,4 @@
-export { carRegistrationView };
+export { carRegistrationView, initializeRegisterCarButtonEventListener };
 /* Not the best implementation to render html code via Js, but for now, 
    the laughs and maybe a little bit for learning, this stays. -asalvidio*/
 
@@ -27,7 +27,7 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
      </div>
      <div class="modal-body">
      <div class="container-fluid">
-       <form id="car-registration-form">
+       <form id="carRegistrationForm">
          <div class="mb-3">
            <label for="manufacturer" class="col-form-label">Marca:</label>
            <input type="text" class="form-control" id="manufacturer" />
@@ -63,3 +63,25 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
    </div>
  </div>
    `;
+
+function initializeRegisterCarButtonEventListener(applicationContext) {
+  const sendButton = document.querySelector("#add-car-button");
+
+  sendButton.addEventListener("click", (e) => {
+    console.log("guardo lo que hay en la modal");
+
+    const manufacturer = document.querySelector("#manufacturer").value;
+    const model = document.querySelector("#model").value;
+    const year = document.querySelector("#year").value;
+    const mileage = document.querySelector("#mileage").value;
+
+    //   if (formFieldsAreValid([manufacturer, model, year, mileage])) {
+    let car = new Car(manufacturer, model, year, mileage);
+    applicationContext.carManagementSystem().addCar(car);
+    //addToTable(car);
+    $("#carRegistrationModal").modal("hide");
+    listCars(applicationContext);
+
+    //   }
+  });
+}
