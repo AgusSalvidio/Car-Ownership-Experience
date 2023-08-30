@@ -26,7 +26,8 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
        ></button>
      </div>
      <div class="modal-body">
-       <form id="car-registration-form" method="POST">
+     <div class="container-fluid">
+       <form id="car-registration-form">
          <div class="mb-3">
            <label for="manufacturer" class="col-form-label">Marca:</label>
            <input type="text" class="form-control" id="manufacturer" />
@@ -44,6 +45,7 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
            <input type="text" class="form-control" id="mileage" />
          </div>
        </form>
+       </div>
      </div>
      <div class="modal-footer">
        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -53,7 +55,7 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
          type="submit"
          class="btn btn-primary"
          id="add-car-button"
-         data-bs-dismiss="modal"
+         name="button"
        >
          Agregar
        </button>

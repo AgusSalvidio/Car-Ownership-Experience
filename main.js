@@ -32,9 +32,6 @@ function initialize() {
   let applicationContext = initializeApplicationContext();
   initializeViews();
   initializeEventListeners(applicationContext);
-  alert(
-    "Para agregar autos, se debe hacer click en Agregar, y completar los datos"
-  );
 }
 
 initialize();

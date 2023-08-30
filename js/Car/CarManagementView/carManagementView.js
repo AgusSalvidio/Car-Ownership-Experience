@@ -60,8 +60,8 @@ function initializeRegisterCarButtonEventListener(applicationContext) {
       let car = new Car(manufacturer, model, year, mileage);
       applicationContext.carManagementSystem().addCar(car);
       addToTable(car);
+      document.querySelector("#car-registration-form").reset();
+      $("#carRegistrationModal").modal("hide");
     }
-
-    document.querySelector("#car-registration-form").reset();
   });
 }
