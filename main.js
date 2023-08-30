@@ -3,6 +3,7 @@ import { CarManagementSystem } from "./js/Car/CarManagementSystem/carManagementS
 import {
   carManagementView,
   initializeRegisterCarButtonEventListener,
+  initializeDataTableEventLister,
 } from "./js/Car/CarManagementView/carManagementView.js";
 import { carRegistrationView } from "./js/Car/CarManagementView/carRegistrationModal.js";
 import { carManagementTableView } from "./js/Car/CarManagementView/carManagementTableView.js";
@@ -26,6 +27,7 @@ function initializeViews() {
 
 function initializeEventListeners(applicationContext) {
   initializeRegisterCarButtonEventListener(applicationContext);
+  initializeDataTableEventLister(applicationContext);
 }
 
 function initialize() {

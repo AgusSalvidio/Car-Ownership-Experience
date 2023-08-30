@@ -1,14 +1,12 @@
 export { carManagementTableView };
 
 let carManagementTableView = document.createElement("div");
-carManagementTableView.classList.add(
-  "d-flex",
-  "justify-content-center",
-  "mx-2"
-);
+carManagementTableView.classList.add("px-1");
 carManagementTableView.innerHTML = `
+<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
 <table
-id="car-management-table"
+id="carManagement_dataTable"
 class=" table table-striped"
 >
 <thead>
@@ -17,8 +15,11 @@ class=" table table-striped"
     <th>Modelo</th>
     <th>Año</th>
     <th>Kilometraje</th>
+    <th>Acciones</th>
   </tr>
 </thead>
-<tbody id="car-management-tbody">
+<tbody id="carManagement_tbody">
 </tbody>
-</table>`;
+</table>
+</div>
+</div>`;

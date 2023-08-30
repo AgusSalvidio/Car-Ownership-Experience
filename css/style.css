@@ -34,16 +34,11 @@ tr:hover {
 th {
   background-color: #007ee5;
   color: #ffffff;
+  text-align: center !important;
 }
 
-table,
-th,
-td,
-tr {
-  border: 1px solid black;
-  border-collapse: collapse;
-  transition: 0.4s;
-  text-align: center;
+td {
+  text-align: center !important;
 }
 
 .table th {
