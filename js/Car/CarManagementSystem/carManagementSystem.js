@@ -1,18 +1,41 @@
+import { Car } from "../car.js";
 export { CarManagementSystem };
 
 class CarManagementSystem {
   storageCarCollection() {
     let storage = localStorage.getItem("CarManagementSystem");
     if (storage) {
-      return JSON.parse(storage);
+      let untypedCarCollection = JSON.parse(storage);
+      let typedCarCollection = [];
+      untypedCarCollection.forEach((untypedCar) => {
+        let car = new Car(
+          untypedCar.manufacturer,
+          untypedCar.model,
+          parseInt(untypedCar.year),
+          parseInt(untypedCar.mileage)
+        );
+        car.sequentialNumber = parseInt(untypedCar.sequentialNumber);
+        typedCarCollection.push(car);
+      });
+      return typedCarCollection;
     } else {
       return [];
     }
   }
 
+  sequentialNumberProvider() {
+    if (!this.carCollection.length) {
+      return 1;
+    } else {
+      let lastSequentialNumber =
+        this.carCollection.slice(-1)[0].sequentialNumber;
+      return lastSequentialNumber++;
+    }
+  }
+
   constructor() {
-    this.sequentialNumberProvider = 0;
     this.carCollection = this.storageCarCollection();
+    this.sequentialNumberProvider = this.sequentialNumberProvider();
     this.typeDescription = "Sistema de Administración de Autos";
   }
 

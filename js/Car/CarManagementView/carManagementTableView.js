@@ -10,9 +10,8 @@ export {
 
 let dataTable;
 let dataTableInitialized = false;
-let option = "";
 let selectedObjectID;
-
+let option;
 const dataTableOptions = {
   /*Need to research more to understand why the page refresh with only a few objects - asalvidio
   columnDefs: [{ orderable: false, targets: [5] }],*/
@@ -71,6 +70,7 @@ function initializeDataTable(applicationContext) {
   listCars(applicationContext);
   dataTable = $("#carManagement_dataTable").DataTable(dataTableOptions);
   dataTableInitialized = true;
+  option = "";
 }
 
 function listCars(applicationContext) {
@@ -136,11 +136,23 @@ function initializeDataTableEventLister(applicationContext) {
     const carToRemove = applicationContext
       .carManagementSystem()
       .carIdentifiedBy(id);
-    applicationContext.carManagementSystem().removeCar(carToRemove);
-    /*Render again only the table, because if i reload all the page, when i have more than one, then
-    i will start all again, returning to the first loaded page. -asalvidio
-    */
-    //location.reload();
-    initializeDataTable(applicationContext);
+    Swal.fire({
+      title: `¿Seguro que desea eliminar ${carToRemove.printOn()}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#007ee5",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        applicationContext.carManagementSystem().removeCar(carToRemove);
+        /*Render again only the table, because if i reload all the page, when i have more than one, then
+        i will start all again, returning to the first loaded page. -asalvidio
+        */
+        //location.reload();
+        initializeDataTable(applicationContext);
+      }
+    });
   });
 }
