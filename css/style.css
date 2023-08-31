@@ -40,6 +40,10 @@ th {
   background-color: #007ee5;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 .reduced-flexbox, .social-profiles a, .social-profiles li, .social-profiles ul {
   display: flex;
   justify-content: flex-end;

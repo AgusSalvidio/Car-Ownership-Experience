@@ -2,6 +2,7 @@ export { Car };
 
 class Car {
   constructor(manufacturer, model, year, mileage) {
+    this.sequentialNumber;
     this.manufacturer = manufacturer;
     this.model = model;
     this.year = year;

@@ -1,11 +1,21 @@
 import { Car } from "../car.js";
-export { carManagementTableView, initializeDataTableEventLister, listCars };
+export {
+  carManagementTableView,
+  initializeDataTableEventLister,
+  listCars,
+  option,
+  selectedObjectID,
+};
 
 let dataTable;
 let dataTableInitialized = false;
+let option = "";
+let selectedObjectID;
 
 const dataTableOptions = {
-  columnDefs: [{ orderable: false, targets: [4] }],
+  /*Need to research more to understand why the page refresh with only a few objects - asalvidio
+  columnDefs: [{ orderable: false, targets: [5] }],*/
+  ordering: false,
   searching: false,
   info: false,
   paging: false,
@@ -39,6 +49,7 @@ class=" table table-striped"
 >
 <thead>
   <tr>
+    <th>ID</th>
     <th>Marca</th>
     <th>Modelo</th>
     <th>Año</th>
@@ -80,13 +91,14 @@ function listCars(applicationContext) {
   cars.forEach((car) => {
     content += `
   <tr>
+    <td>${car.sequentialNumber}</td>
     <td>${car.manufacturer}</td>
     <td>${car.model}</td>
     <td>${car.year}</td>
     <td>${car.mileage}</td>
     <td>
-      <button class="btn btn-sm btn-primary"><i class="fa-regular fa-pen-to-square"></i></button> 
-      <button class="btn btn-sm btn-danger"><i class="fa-solid fa-xmark"></i></button>
+      <a id="editButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
+      <a id="removeButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
     </td>
   </tr>
   `;
@@ -95,8 +107,49 @@ function listCars(applicationContext) {
   carManagement_tbody.innerHTML = content;
 }
 
+function onTrigger(element, event, selector, handler) {
+  element.addEventListener(event, (e) => {
+    if (e.target.closest(selector)) {
+      handler(e);
+    }
+  });
+}
+
 function initializeDataTableEventLister(applicationContext) {
   window.addEventListener("load", () => {
     initializeDataTable(applicationContext);
+  });
+  onTrigger(document, "click", "#editButton", (e) => {
+    const row = e.target.parentNode.parentNode;
+    const idTable = row.parentNode.children[0].innerHTML;
+    const manufacturerTable = row.parentNode.children[1].innerHTML;
+    const modelTable = row.parentNode.children[2].innerHTML;
+    const yearTable = row.parentNode.children[3].innerHTML;
+    const mileageTable = row.parentNode.children[4].innerHTML;
+
+    const manufacturer = document.querySelector("#manufacturer");
+    const model = document.querySelector("#model");
+    const year = document.querySelector("#year");
+    const mileage = document.querySelector("#mileage");
+
+    manufacturer.value = manufacturerTable;
+    model.value = modelTable;
+    year.value = yearTable;
+    mileage.value = mileageTable;
+    option = "Edit";
+    selectedObjectID = idTable;
+    let modalLabel = document.querySelector("#carRegistrationModalLabel");
+    modalLabel.innerHTML = "Editar auto";
+    $("#carRegistrationModal").modal("show");
+  });
+  onTrigger(document, "click", "#removeButton", (e) => {
+    const row = e.target.parentNode.parentNode;
+    const id = row.parentNode.firstElementChild.innerHTML;
+    const carToRemove = applicationContext
+      .carManagementSystem()
+      .carIdentifiedBy(id);
+    applicationContext.carManagementSystem().removeCar(carToRemove);
+    console.log("Lo borre");
+    //location.reload();
   });
 }

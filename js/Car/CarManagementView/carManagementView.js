@@ -33,6 +33,8 @@ function initializeAddCarButtonEventListener(applicationContext) {
   const addButton = document.querySelector("#addCarButton");
   const modal = new bootstrap.Modal("#carRegistrationModal");
   addButton.addEventListener("click", (e) => {
+    let modalLabel = document.querySelector("#carRegistrationModalLabel");
+    modalLabel.innerHTML = "Agregar auto";
     document.querySelector("#carRegistrationForm").reset();
     modal.show();
   });

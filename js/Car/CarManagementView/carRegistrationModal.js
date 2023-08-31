@@ -1,3 +1,10 @@
+import { Car } from "../car.js";
+import {
+  listCars,
+  option,
+  selectedObjectID,
+} from "./carManagementTableView.js";
+
 export { carRegistrationView, initializeRegisterCarButtonEventListener };
 /* Not the best implementation to render html code via Js, but for now, 
    the laughs and maybe a little bit for learning, this stays. -asalvidio*/
@@ -16,7 +23,6 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
    <div class="modal-content">
      <div class="modal-header">
        <h1 class="modal-title fs-5" id="carRegistrationModalLabel">
-         Agregar Auto
        </h1>
        <button
          type="button"
@@ -68,20 +74,24 @@ function initializeRegisterCarButtonEventListener(applicationContext) {
   const sendButton = document.querySelector("#add-car-button");
 
   sendButton.addEventListener("click", (e) => {
-    console.log("guardo lo que hay en la modal");
-
     const manufacturer = document.querySelector("#manufacturer").value;
     const model = document.querySelector("#model").value;
     const year = document.querySelector("#year").value;
     const mileage = document.querySelector("#mileage").value;
 
-    //   if (formFieldsAreValid([manufacturer, model, year, mileage])) {
-    let car = new Car(manufacturer, model, year, mileage);
-    applicationContext.carManagementSystem().addCar(car);
-    //addToTable(car);
+    // //   if (formFieldsAreValid([manufacturer, model, year, mileage])) {}
+    let car = new Car(manufacturer, model, parseInt(year), parseInt(mileage));
+
+    if (option == "Edit") {
+      let originalCar = applicationContext
+        .carManagementSystem()
+        .carIdentifiedBy(selectedObjectID);
+      applicationContext.carManagementSystem().updateCar(originalCar, car);
+    } else {
+      applicationContext.carManagementSystem().addCar(car);
+    }
+
     $("#carRegistrationModal").modal("hide");
     listCars(applicationContext);
-
-    //   }
   });
 }
