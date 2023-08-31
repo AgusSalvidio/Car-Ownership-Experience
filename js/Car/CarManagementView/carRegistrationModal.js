@@ -37,19 +37,19 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
        <form id="carRegistrationForm">
          <div class="mb-3">
            <label for="manufacturer" class="col-form-label">Marca:</label>
-           <input type="text" class="form-control" id="manufacturer" />
+           <input type="text" class="form-control" name="manufacturer" id="manufacturer" />
          </div>
          <div class="mb-3">
            <label for="model" class="col-form-label">Modelo:</label>
-           <input type="text" class="form-control" id="model" />
+           <input type="text" class="form-control" name="model" id="model" />
          </div>
          <div class="mb-3">
            <label for="year" class="col-form-label">Año:</label>
-           <input type="text" class="form-control" id="year" size="4" />
+           <input type="text" class="form-control" name="year" id="year"/>
          </div>
          <div class="mb-3">
            <label for="mileage" class="col-form-label">Kilometraje:</label>
-           <input type="text" class="form-control" id="mileage" />
+           <input type="text" class="form-control" name="mileage" id="mileage" />
          </div>
        </form>
        </div>
@@ -71,6 +71,40 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
  </div>
    `;
 
+function formIsValid() {
+  $("#carRegistrationForm").validate({
+    rules: {
+      manufacturer: {
+        required: true,
+      },
+      model: {
+        required: true,
+      },
+      year: {
+        required: true,
+        digits: true,
+      },
+      mileage: {
+        required: true,
+        digits: true,
+      },
+    },
+    messages: {
+      manufacturer: { required: "Campo requerido." },
+      model: { required: "Campo requerido." },
+      year: {
+        required: "Campo requerido.",
+        digits: "Ingrese un año válido.",
+      },
+      mileage: {
+        required: "Campo requerido.",
+        digits: "Ingrese un kilometraje válido.",
+      },
+    },
+  });
+  return $("#carRegistrationForm").valid();
+}
+
 function initializeRegisterCarButtonEventListener(applicationContext) {
   const sendButton = document.querySelector("#add-car-button");
 
@@ -80,31 +114,32 @@ function initializeRegisterCarButtonEventListener(applicationContext) {
     const year = document.querySelector("#year").value;
     const mileage = document.querySelector("#mileage").value;
 
-    // //   if (formFieldsAreValid([manufacturer, model, year, mileage])) {}
-    let car = new Car(manufacturer, model, parseInt(year), parseInt(mileage));
-
-    if (option == "Edit") {
-      let originalCar = applicationContext
-        .carManagementSystem()
-        .carIdentifiedBy(selectedObjectID);
-      applicationContext.carManagementSystem().updateCar(originalCar, car);
-    } else {
-      applicationContext.carManagementSystem().addCar(car);
+    if (formIsValid()) {
+      let car = new Car(manufacturer, model, parseInt(year), parseInt(mileage));
+      if (option == "Edit") {
+        let originalCar = applicationContext
+          .carManagementSystem()
+          .carIdentifiedBy(selectedObjectID);
+        applicationContext.carManagementSystem().updateCar(originalCar, car);
+        Toastify({
+          text: "Se ha actualizado satisfactoriamente",
+          duration: 2000,
+          gravity: "bottom",
+          position: "center",
+          style: {
+            background: "#007ee5",
+          },
+        }).showToast();
+      } else {
+        applicationContext.carManagementSystem().addCar(car);
+      }
+      document.querySelector("#carRegistrationForm").reset();
+      $("#carRegistrationModal").modal("hide");
+      /*Render again only the table, because if i reload all the page, when i have more than one, then
+        i will start all again, returning to the first loaded page. -asalvidio
+        */
+      //location.reload();
+      initializeDataTable(applicationContext);
     }
-    $("#carRegistrationModal").modal("hide");
-    /*Render again only the table, because if i reload all the page, when i have more than one, then
-    i will start all again, returning to the first loaded page. -asalvidio
-    */
-    //location.reload();
-    initializeDataTable(applicationContext);
-    Toastify({
-      text: "Se ha actualizado satisfactoriamente",
-      duration: 2000,
-      gravity: "bottom",
-      position: "center",
-      style: {
-        background: "#007ee5",
-      },
-    }).showToast();
   });
 }

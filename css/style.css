@@ -44,6 +44,11 @@ a:hover {
   cursor: pointer;
 }
 
+.error {
+  color: red;
+  font-style: italic;
+}
+
 .reduced-flexbox, .social-profiles a, .social-profiles li, .social-profiles ul {
   display: flex;
   justify-content: flex-end;
