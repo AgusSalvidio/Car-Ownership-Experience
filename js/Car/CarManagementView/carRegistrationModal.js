@@ -3,6 +3,7 @@ import {
   listCars,
   option,
   selectedObjectID,
+  initializeDataTable,
 } from "./carManagementTableView.js";
 
 export { carRegistrationView, initializeRegisterCarButtonEventListener };
@@ -90,8 +91,20 @@ function initializeRegisterCarButtonEventListener(applicationContext) {
     } else {
       applicationContext.carManagementSystem().addCar(car);
     }
-
     $("#carRegistrationModal").modal("hide");
-    listCars(applicationContext);
+    /*Render again only the table, because if i reload all the page, when i have more than one, then
+    i will start all again, returning to the first loaded page. -asalvidio
+    */
+    //location.reload();
+    initializeDataTable(applicationContext);
+    Toastify({
+      text: "Se ha actualizado satisfactoriamente",
+      duration: 2000,
+      gravity: "bottom",
+      position: "center",
+      style: {
+        background: "#007ee5",
+      },
+    }).showToast();
   });
 }

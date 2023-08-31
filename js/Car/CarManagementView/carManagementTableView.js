@@ -5,13 +5,13 @@ export {
   listCars,
   option,
   selectedObjectID,
+  initializeDataTable,
 };
 
 let dataTable;
 let dataTableInitialized = false;
-let option = "";
 let selectedObjectID;
-
+let option;
 const dataTableOptions = {
   /*Need to research more to understand why the page refresh with only a few objects - asalvidio
   columnDefs: [{ orderable: false, targets: [5] }],*/
@@ -23,9 +23,9 @@ const dataTableOptions = {
   destroy: true,
   language: {
     lengthMenu: "Mostrar _MENU_ registros por página",
-    zeroRecords: "Ningún usuario encontrado",
+    zeroRecords: "Ningún auto encontrado",
     info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
-    infoEmpty: "Ningún usuario encontrado",
+    infoEmpty: "Ningún auto encontrado",
     infoFiltered: "(filtrados desde _MAX_ registros totales)",
     search: "Buscar:",
     loadingRecords: "Cargando...",
@@ -67,25 +67,13 @@ function initializeDataTable(applicationContext) {
   if (dataTableInitialized) {
     dataTable.destroy();
   }
-  console.log("Se inicializa la tabla");
   listCars(applicationContext);
   dataTable = $("#carManagement_dataTable").DataTable(dataTableOptions);
   dataTableInitialized = true;
+  option = "";
 }
 
 function listCars(applicationContext) {
-  //For debugging
-  console.log("Listo los vehiculos");
-  console.log("BORRAR DATOS DUMMY DE AUTOS!");
-  let car = new Car("Honda", "Civic Si", 2009, 1000);
-  applicationContext.carManagementSystem().addCar(car);
-  car = new Car("Ferrari", "Modena 360", 2005, 500);
-  applicationContext.carManagementSystem().addCar(car);
-  car = new Car("Volkswagen", "GTI", 2015, 100000);
-  applicationContext.carManagementSystem().addCar(car);
-  car = new Car("Toyota", "Corolla", 2008, 500000);
-  applicationContext.carManagementSystem().addCar(car);
-
   const cars = applicationContext.carManagementSystem().cars();
   let content = ``;
   cars.forEach((car) => {
@@ -148,8 +136,23 @@ function initializeDataTableEventLister(applicationContext) {
     const carToRemove = applicationContext
       .carManagementSystem()
       .carIdentifiedBy(id);
-    applicationContext.carManagementSystem().removeCar(carToRemove);
-    console.log("Lo borre");
-    //location.reload();
+    Swal.fire({
+      title: `¿Seguro que desea eliminar ${carToRemove.printOn()}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#007ee5",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        applicationContext.carManagementSystem().removeCar(carToRemove);
+        /*Render again only the table, because if i reload all the page, when i have more than one, then
+        i will start all again, returning to the first loaded page. -asalvidio
+        */
+        //location.reload();
+        initializeDataTable(applicationContext);
+      }
+    });
   });
 }
