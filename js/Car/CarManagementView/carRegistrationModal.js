@@ -1,4 +1,11 @@
-export { carRegistrationView };
+import { Car } from "../car.js";
+import {
+  listCars,
+  option,
+  selectedObjectID,
+} from "./carManagementTableView.js";
+
+export { carRegistrationView, initializeRegisterCarButtonEventListener };
 /* Not the best implementation to render html code via Js, but for now, 
    the laughs and maybe a little bit for learning, this stays. -asalvidio*/
 
@@ -16,7 +23,6 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
    <div class="modal-content">
      <div class="modal-header">
        <h1 class="modal-title fs-5" id="carRegistrationModalLabel">
-         Agregar Auto
        </h1>
        <button
          type="button"
@@ -26,7 +32,8 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
        ></button>
      </div>
      <div class="modal-body">
-       <form id="car-registration-form" method="POST">
+     <div class="container-fluid">
+       <form id="carRegistrationForm">
          <div class="mb-3">
            <label for="manufacturer" class="col-form-label">Marca:</label>
            <input type="text" class="form-control" id="manufacturer" />
@@ -44,6 +51,7 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
            <input type="text" class="form-control" id="mileage" />
          </div>
        </form>
+       </div>
      </div>
      <div class="modal-footer">
        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -53,7 +61,7 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
          type="submit"
          class="btn btn-primary"
          id="add-car-button"
-         data-bs-dismiss="modal"
+         name="button"
        >
          Agregar
        </button>
@@ -61,3 +69,29 @@ carRegistrationView.innerHTML = `<div class="modal-dialog">
    </div>
  </div>
    `;
+
+function initializeRegisterCarButtonEventListener(applicationContext) {
+  const sendButton = document.querySelector("#add-car-button");
+
+  sendButton.addEventListener("click", (e) => {
+    const manufacturer = document.querySelector("#manufacturer").value;
+    const model = document.querySelector("#model").value;
+    const year = document.querySelector("#year").value;
+    const mileage = document.querySelector("#mileage").value;
+
+    // //   if (formFieldsAreValid([manufacturer, model, year, mileage])) {}
+    let car = new Car(manufacturer, model, parseInt(year), parseInt(mileage));
+
+    if (option == "Edit") {
+      let originalCar = applicationContext
+        .carManagementSystem()
+        .carIdentifiedBy(selectedObjectID);
+      applicationContext.carManagementSystem().updateCar(originalCar, car);
+    } else {
+      applicationContext.carManagementSystem().addCar(car);
+    }
+
+    $("#carRegistrationModal").modal("hide");
+    listCars(applicationContext);
+  });
+}

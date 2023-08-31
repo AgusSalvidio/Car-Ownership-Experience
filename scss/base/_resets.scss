@@ -34,15 +34,10 @@ th {
   color: #ffffff;
 }
 
-table,
-th,
-td,
-tr {
-  border: 1px solid black;
-  border-collapse: collapse;
-  transition: 0.4s;
-  text-align: center;
-}
 .table th {
   background-color: $main-color;
+}
+
+a:hover {
+  cursor: pointer;
 }
