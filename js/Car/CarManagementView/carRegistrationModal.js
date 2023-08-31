@@ -3,6 +3,7 @@ import {
   listCars,
   option,
   selectedObjectID,
+  initializeDataTable,
 } from "./carManagementTableView.js";
 
 export { carRegistrationView, initializeRegisterCarButtonEventListener };
@@ -92,6 +93,10 @@ function initializeRegisterCarButtonEventListener(applicationContext) {
     }
 
     $("#carRegistrationModal").modal("hide");
-    listCars(applicationContext);
+    /*Render again only the table, because if i reload all the page, when i have more than one, then
+    i will start all again, returning to the first loaded page. -asalvidio
+    */
+    //location.reload();
+    initializeDataTable(applicationContext);
   });
 }

@@ -1,9 +1,18 @@
 export { CarManagementSystem };
 
 class CarManagementSystem {
+  storageCarCollection() {
+    let storage = localStorage.getItem("CarManagementSystem");
+    if (storage) {
+      return JSON.parse(storage);
+    } else {
+      return [];
+    }
+  }
+
   constructor() {
     this.sequentialNumberProvider = 0;
-    this.carCollection = [];
+    this.carCollection = this.storageCarCollection();
     this.typeDescription = "Sistema de Administración de Autos";
   }
 
@@ -18,12 +27,21 @@ class CarManagementSystem {
     );
   }
 
+  refreshDatabaseStorage() {
+    localStorage.setItem(
+      "CarManagementSystem",
+      JSON.stringify(this.carCollection)
+    );
+  }
+
   addCar(aCar) {
     this.addSequentialNumber(aCar);
     this.carCollection.push(aCar);
+    this.refreshDatabaseStorage();
   }
   removeCar(aCar) {
     this.carCollection.pop(aCar);
+    this.refreshDatabaseStorage();
   }
   updateCar(originalCar, updatedCar) {
     updatedCar.sequentialNumber = originalCar.sequentialNumber;
@@ -31,6 +49,7 @@ class CarManagementSystem {
     if (~index) {
       this.carCollection[index] = updatedCar;
     }
+    this.refreshDatabaseStorage();
   }
   cars() {
     return this.carCollection;
