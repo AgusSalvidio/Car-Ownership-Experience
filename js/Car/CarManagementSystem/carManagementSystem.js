@@ -29,7 +29,7 @@ class CarManagementSystem {
     } else {
       let lastSequentialNumber =
         this.carCollection.slice(-1)[0].sequentialNumber;
-      return lastSequentialNumber++;
+      return lastSequentialNumber + 1;
     }
   }
 

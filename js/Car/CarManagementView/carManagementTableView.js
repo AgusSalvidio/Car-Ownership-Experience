@@ -115,6 +115,8 @@ function initializeDataTableEventLister(applicationContext) {
     const yearTable = row.parentNode.children[3].innerHTML;
     const mileageTable = row.parentNode.children[4].innerHTML;
 
+    document.querySelector("#carRegistrationForm").reset();
+
     const manufacturer = document.querySelector("#manufacturer");
     const model = document.querySelector("#model");
     const year = document.querySelector("#year");
