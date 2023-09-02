@@ -25,13 +25,18 @@ button[type="submit"] {
     color: #ffffff;
   }
 }
+
 tr:hover {
   background-color: #ffffff;
 }
 
+td {
+  text-align: center !important;
+}
 th {
   background-color: $main-color;
-  color: #ffffff;
+  color: #ffffff !important;
+  text-align: center !important;
 }
 
 .table th {

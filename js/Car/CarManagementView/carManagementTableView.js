@@ -1,4 +1,3 @@
-import { Car } from "../car.js";
 export {
   carManagementTableView,
   initializeDataTableEventLister,
@@ -85,8 +84,8 @@ function listCars(applicationContext) {
     <td>${car.year}</td>
     <td>${car.mileage}</td>
     <td>
-      <a id="editButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
-      <a id="removeButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
+      <a id="editCarButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
+      <a id="removeCarButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
     </td>
   </tr>
   `;
@@ -104,10 +103,9 @@ function onTrigger(element, event, selector, handler) {
 }
 
 function initializeDataTableEventLister(applicationContext) {
-  window.addEventListener("load", () => {
-    initializeDataTable(applicationContext);
-  });
-  onTrigger(document, "click", "#editButton", (e) => {
+  initializeDataTable(applicationContext);
+
+  onTrigger(document, "click", "#editCarButton", (e) => {
     const row = e.target.parentNode.parentNode;
     const idTable = row.parentNode.children[0].innerHTML;
     const manufacturerTable = row.parentNode.children[1].innerHTML;
@@ -132,7 +130,7 @@ function initializeDataTableEventLister(applicationContext) {
     modalLabel.innerHTML = "Editar auto";
     $("#carRegistrationModal").modal("show");
   });
-  onTrigger(document, "click", "#removeButton", (e) => {
+  onTrigger(document, "click", "#removeCarButton", (e) => {
     const row = e.target.parentNode.parentNode;
     const id = row.parentNode.firstElementChild.innerHTML;
     const carToRemove = applicationContext

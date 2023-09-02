@@ -1,6 +1,5 @@
 import { Car } from "../car.js";
 import {
-  listCars,
   option,
   selectedObjectID,
   initializeDataTable,
@@ -133,8 +132,8 @@ function initializeRegisterCarButtonEventListener(applicationContext) {
       } else {
         applicationContext.carManagementSystem().addCar(car);
       }
-      document.querySelector("#carRegistrationForm").reset();
       $("#carRegistrationModal").modal("hide");
+      document.querySelector("#carRegistrationForm").reset();
       /*Render again only the table, because if i reload all the page, when i have more than one, then
         i will start all again, returning to the first loaded page. -asalvidio
         */
