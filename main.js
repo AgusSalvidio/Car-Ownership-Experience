@@ -1,32 +1,34 @@
 import { ApplicationContext } from "./js/ApplicationContext/applicationContext.js";
 import { CarManagementSystem } from "./js/Car/CarManagementSystem/carManagementSystem.js";
-import { initializeDataTableEventLister } from "./js/Car/CarManagementView/carManagementTableView.js";
+import { ExpenseManagementSystem } from "./js/Expense/ExpenseManagementSystem/expenseManagementSystem.js";
 import {
-  initializeAddCarButtonEventListener,
-  initializeCarManagementView,
-} from "./js/Car/CarManagementView/carManagementView.js";
-import { initializeRegisterCarButtonEventListener } from "./js/Car/CarManagementView/carRegistrationModal.js";
+  initializeHomeView,
+  initializeHomeNavButtonEventListener,
+} from "./js/Home/homeView.js";
+import { initializeExpenseNavButtonEventListener } from "./js/Expense/ExpenseManagementView/expenseManagementView.js";
+import { initializeCarNavButtonEventListener } from "./js/Car/CarManagementView/carManagementView.js";
 
 function initializeApplicationContext() {
   let context = new ApplicationContext();
   context.addSystem(new CarManagementSystem());
+  context.addSystem(new ExpenseManagementSystem());
   return context;
 }
 
-function initializeViews() {
-  initializeCarManagementView();
+function initializeMainView(applicationContext) {
+  initializeHomeView(applicationContext);
 }
 
-function initializeEventListeners(applicationContext) {
-  initializeRegisterCarButtonEventListener(applicationContext);
-  initializeDataTableEventLister(applicationContext);
-  initializeAddCarButtonEventListener(applicationContext);
+function initializeNavEventListeners(applicationContext) {
+  initializeHomeNavButtonEventListener(applicationContext);
+  initializeCarNavButtonEventListener(applicationContext);
+  initializeExpenseNavButtonEventListener(applicationContext);
 }
 
 function initialize() {
   let applicationContext = initializeApplicationContext();
-  initializeViews();
-  initializeEventListeners(applicationContext);
+  initializeMainView(applicationContext);
+  initializeNavEventListeners(applicationContext);
 }
 
 initialize();

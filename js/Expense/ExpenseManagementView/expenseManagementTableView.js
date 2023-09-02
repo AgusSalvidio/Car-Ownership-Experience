@@ -79,8 +79,8 @@ function listExpenses(applicationContext) {
     <td>${expense.name}</td>
     <td>${expense.price}</td>
     <td>
-      <a id="editButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
-      <a id="removeButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
+      <a id="editExpenseButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
+      <a id="removeExpenseButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
     </td>
   </tr>
   `;
@@ -97,10 +97,8 @@ function onTrigger(element, event, selector, handler) {
 }
 
 function initializeDataTableEventLister(applicationContext) {
-  window.addEventListener("load", () => {
-    initializeDataTable(applicationContext);
-  });
-  onTrigger(document, "click", "#editButton", (e) => {
+  initializeDataTable(applicationContext);
+  onTrigger(document, "click", "#editExpenseButton", (e) => {
     const row = e.target.parentNode.parentNode;
     const idTable = row.parentNode.children[0].innerHTML;
     const nameTable = row.parentNode.children[1].innerHTML;
@@ -119,7 +117,7 @@ function initializeDataTableEventLister(applicationContext) {
     modalLabel.innerHTML = "Editar gasto";
     $("#expenseRegistrationModal").modal("show");
   });
-  onTrigger(document, "click", "#removeButton", (e) => {
+  onTrigger(document, "click", "#removeExpenseButton", (e) => {
     const row = e.target.parentNode.parentNode;
     const id = row.parentNode.firstElementChild.innerHTML;
     const expenseToRemove = applicationContext

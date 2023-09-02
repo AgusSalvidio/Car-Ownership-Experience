@@ -1,16 +1,21 @@
-export { initializeAddCarButtonEventListener, initializeCarManagementView };
-import { carManagementTableView } from "./carManagementTableView.js";
-import { carRegistrationView } from "./carRegistrationModal.js";
-function rootDiv() {
-  return document.querySelector("#root");
-}
+export { initializeCarManagementView, initializeCarNavButtonEventListener };
+import {
+  carManagementTableView,
+  initializeDataTableEventLister,
+} from "./carManagementTableView.js";
+import {
+  carRegistrationView,
+  initializeRegisterCarButtonEventListener,
+} from "./carRegistrationModal.js";
+import { rootDiv, unloadPreviousView } from "../../Utils/utils.js";
 
-function initializeCarManagementView() {
+function initializeCarManagementView(applicationContext) {
   let div = rootDiv();
   //These should be separeted initialize messages
   div.append(carRegistrationView);
   div.append(carManagementView);
   div.append(carManagementTableView);
+  initializeEventListeners(applicationContext);
 }
 
 /* Not the best implementation to render html code via Js, but for now, 
@@ -28,6 +33,20 @@ id="addCarButton"
 Agregar
 </button>
 `;
+
+function initializeEventListeners(applicationContext) {
+  initializeRegisterCarButtonEventListener(applicationContext);
+  initializeDataTableEventLister(applicationContext);
+  initializeAddCarButtonEventListener(applicationContext);
+}
+
+function initializeCarNavButtonEventListener(applicationContext) {
+  const carNavButton = document.querySelector("#carNavButton");
+  carNavButton.addEventListener("click", (e) => {
+    unloadPreviousView(applicationContext);
+    initializeCarManagementView(applicationContext);
+  });
+}
 
 function initializeAddCarButtonEventListener(applicationContext) {
   const addButton = document.querySelector("#addCarButton");
