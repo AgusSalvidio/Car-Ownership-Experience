@@ -42,7 +42,16 @@ function initializeEventListeners(applicationContext) {
 
 function initializeAddExpenseButtonEventListener(applicationContext) {
   const addButton = document.querySelector("#addExpenseButton");
-  const modal = new bootstrap.Modal("#expenseRegistrationModal");
+
+  let modal = bootstrap.Modal.getInstance(
+    document.querySelector("#expenseRegistrationModal")
+  );
+
+  if (modal) {
+    modal.dispose();
+  }
+
+  modal = new bootstrap.Modal("#expenseRegistrationModal");
   addButton.addEventListener("click", (e) => {
     let modalLabel = document.querySelector("#expenseRegistrationModalLabel");
     modalLabel.innerHTML = "Agregar gasto";
