@@ -125,8 +125,8 @@ function initializeRegisterExpenseButtonEventListener(applicationContext) {
       } else {
         applicationContext.expenseManagementSystem().addExpense(expense);
       }
-      document.querySelector("#expenseRegistrationForm").reset();
       $("#expenseRegistrationModal").modal("hide");
+      document.querySelector("#expenseRegistrationForm").reset();
       initializeDataTable(applicationContext);
     }
   });
