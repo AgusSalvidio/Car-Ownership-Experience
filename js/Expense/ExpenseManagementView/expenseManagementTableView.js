@@ -48,8 +48,9 @@ class=" table table-striped"
 <thead>
   <tr>
     <th>ID</th>
-    <th>Nombre</th>
+    <th>Tipo</th>
     <th>Precio</th>
+    <th>Notas</th>
     <th>Acciones</th>
   </tr>
 </thead>
@@ -78,6 +79,7 @@ function listExpenses(applicationContext) {
     <td>${expense.sequentialNumber}</td>
     <td>${expense.name}</td>
     <td>${expense.price}</td>
+    <td><a id="infoExpenseButton" class="btn-sm "><i class="fa-solid fa-magnifying-glass"></i></a></td>
     <td>
       <a id="editExpenseButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
       <a id="removeExpenseButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
@@ -98,6 +100,27 @@ function onTrigger(element, event, selector, handler) {
 
 function initializeDataTableEventLister(applicationContext) {
   initializeDataTable(applicationContext);
+  onTrigger(document, "click", "#infoExpenseButton", (e) => {
+    const row = e.target.parentNode.parentNode;
+    const idTable = row.parentNode.children[0].innerHTML;
+
+    document.querySelector("#expenseRegistrationForm").reset();
+
+    const identifiedExpense = applicationContext
+      .expenseManagementSystem()
+      .expenseIdentifiedBy(idTable);
+    const notes = identifiedExpense.notes;
+
+    const notesModal = document.querySelector("#notesModal");
+
+    notesModal.value = notes;
+
+    selectedObjectID = idTable;
+    let modalLabel = document.querySelector("#expenseInfoModalLabel");
+    modalLabel.innerHTML = "Notas";
+    $("#expenseInfoModal").modal("show");
+  });
+
   onTrigger(document, "click", "#editExpenseButton", (e) => {
     const row = e.target.parentNode.parentNode;
     const idTable = row.parentNode.children[0].innerHTML;
@@ -108,9 +131,16 @@ function initializeDataTableEventLister(applicationContext) {
 
     const name = document.querySelector("#name");
     const price = document.querySelector("#price");
+    const notes = document.querySelector("#notes");
+
+    const identifiedExpense = applicationContext
+      .expenseManagementSystem()
+      .expenseIdentifiedBy(idTable);
 
     name.value = nameTable;
     price.value = priceTable;
+    notes.value = identifiedExpense.notes;
+
     option = "Edit";
     selectedObjectID = idTable;
     let modalLabel = document.querySelector("#expenseRegistrationModalLabel");

@@ -31,9 +31,14 @@ tr:hover {
   background-color: #ffffff;
 }
 
+td {
+  text-align: center !important;
+}
+
 th {
   background-color: #007ee5;
-  color: #ffffff;
+  color: #ffffff !important;
+  text-align: center !important;
 }
 
 .table th {

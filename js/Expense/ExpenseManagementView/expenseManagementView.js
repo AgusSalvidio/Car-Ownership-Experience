@@ -7,12 +7,15 @@ import {
   expenseRegistrationView,
   initializeRegisterExpenseButtonEventListener,
 } from "./expenseRegistrationModal.js";
+import { expenseInfoView } from "./expenseNotesModal.js";
+
 import { rootDiv, unloadPreviousView } from "../../Utils/utils.js";
 
 function initializeExpenseManagementView(applicationContext) {
   let div = rootDiv();
   //These should be separeted initialize messages
   div.append(expenseRegistrationView);
+  div.append(expenseInfoView);
   div.append(expenseManagementView);
   div.append(expenseManagementTableView);
   initializeEventListeners(applicationContext);
@@ -24,10 +27,9 @@ expenseManagementView.setAttribute("id", "expense-management-view");
 expenseManagementView.innerHTML = `<legend class="">Administrar Gastos</legend>
   <!-- Button trigger modal -->
   <button
-  class="btn btn-sm btn-primary"
+  class="btn btn-md btn-primary"
   id="addExpenseButton"
   >
-  <i class="fa-solid fa-plus"></i>
   Agregar
   </button>
   `;

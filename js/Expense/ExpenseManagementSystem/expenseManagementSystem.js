@@ -11,7 +11,7 @@ class ExpenseManagementSystem {
         let expense = new Expense(
           untypedExpense.name,
           parseInt(untypedExpense.price),
-          untypedExpense.model
+          untypedExpense.notes
         );
         expense.sequentialNumber = parseInt(untypedExpense.sequentialNumber);
         typedExpenseCollection.push(expense);

@@ -37,7 +37,7 @@ expenseRegistrationView.innerHTML = `<div class="modal-dialog">
      <div class="container-fluid">
        <form id="expenseRegistrationForm">
          <div class="mb-3">
-           <label for="name" class="col-form-label">Nombre del gasto:</label>
+           <label for="name" class="col-form-label">Tipo:</label>
            <input type="text" class="form-control" name="name" id="name" />
          </div>
          <div class="mb-3">
@@ -46,7 +46,7 @@ expenseRegistrationView.innerHTML = `<div class="modal-dialog">
          </div>
          <div class="mb-3">
            <label for="notes" class="col-form-label">Notas:</label>
-           <input type="text" class="form-control" name="notes" id="notes"/>
+           <textarea rows="4" cols="54" name="notes" id="notes"></textarea>
          </div>
        </form>
        </div>

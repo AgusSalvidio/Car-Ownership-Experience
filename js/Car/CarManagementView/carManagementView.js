@@ -26,10 +26,9 @@ carManagementView.setAttribute("id", "car-management-view");
 carManagementView.innerHTML = `<legend class="">Administrar Autos</legend>
 <!-- Button trigger modal -->
 <button
-class="btn btn-sm btn-primary"
+class="btn btn-md btn-primary"
 id="addCarButton"
 >
-<i class="fa-solid fa-plus"></i>
 Agregar
 </button>
 `;
