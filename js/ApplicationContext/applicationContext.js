@@ -13,10 +13,11 @@ class ApplicationContext {
         system.typeDescription === "Sistema de Administración de Autos"
     );
   }
-  expenseManagementSystem() {
+  financialTransactionManagementSystem() {
     return this.systems.find(
       (system) =>
-        system.typeDescription === "Sistema de Administración de Gastos"
+        system.typeDescription ===
+        "Sistema de Administración de Ingresos/Egresos"
     );
   }
 }

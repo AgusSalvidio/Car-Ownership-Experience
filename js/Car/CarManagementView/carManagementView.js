@@ -59,7 +59,6 @@ function initializeAddCarButtonEventListener(applicationContext) {
   // }
 
   let modal = new bootstrap.Modal("#carRegistrationModal");
-  console.log(modal);
 
   addButton.addEventListener("click", (e) => {
     let modalLabel = document.querySelector("#carRegistrationModalLabel");
