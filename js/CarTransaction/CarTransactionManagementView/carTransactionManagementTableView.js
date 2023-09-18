@@ -143,8 +143,8 @@ function initializeDataTableEventLister(applicationContext) {
       "checked",
       true
     );
-    purchasePrice = purchasePriceTable;
-    salePrice = salePriceTable;
+    purchasePrice.value = purchasePriceTable;
+    salePrice.value = salePriceTable;
 
     option = "Edit";
     selectedObjectID = idTable;

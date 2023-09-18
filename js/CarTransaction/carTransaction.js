@@ -9,6 +9,6 @@ class CarTransaction {
     this.state = state;
   }
   printOn() {
-    return `Operación con estado ${state} de ${this.car}`;
+    return `Operación con estado ${this.state} de ${this.car.printOn()}`;
   }
 }

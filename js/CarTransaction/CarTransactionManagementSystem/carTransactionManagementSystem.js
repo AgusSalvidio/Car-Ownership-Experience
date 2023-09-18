@@ -69,7 +69,7 @@ class CarTransactionManagementSystem {
     );
   }
 
-  addTransactionCar(aCarTransaction) {
+  addCarTransaction(aCarTransaction) {
     this.addSequentialNumber(aCarTransaction);
     this.carTransactionCollection.push(aCarTransaction);
     this.refreshDatabaseStorage();
