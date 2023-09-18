@@ -1,0 +1,28 @@
+.radio-toolbar {
+  margin: 10px;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar label {
+  display: inline-block;
+  background-color: #fff;
+  padding: 10px 20px;
+  border: 2px solid $main-color;
+  border-radius: 4px;
+}
+
+.radio-toolbar label:hover {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+  background-color: $main-color-light;
+  border-color: $main-color;
+  color: #fff;
+}

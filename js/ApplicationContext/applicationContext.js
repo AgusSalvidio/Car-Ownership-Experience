@@ -7,16 +7,17 @@ class ApplicationContext {
   addSystem(aSystem) {
     this.systems.push(aSystem);
   }
-  carManagementSystem() {
+  carTransactionManagementSystem() {
     return this.systems.find(
       (system) =>
-        system.typeDescription === "Sistema de Administración de Autos"
+        system.typeDescription === "Sistema de Administración de Operaciones de Autos"
     );
   }
-  expenseManagementSystem() {
+  financialTransactionManagementSystem() {
     return this.systems.find(
       (system) =>
-        system.typeDescription === "Sistema de Administración de Gastos"
+        system.typeDescription ===
+        "Sistema de Administración de Ingresos/Egresos"
     );
   }
 }

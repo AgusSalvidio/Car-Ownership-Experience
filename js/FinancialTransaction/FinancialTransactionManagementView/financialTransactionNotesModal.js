@@ -1,16 +1,22 @@
-export { expenseInfoView };
+export { financialTransactionInfoView };
 
-let expenseInfoView = document.createElement("div");
-expenseInfoView.classList.add("modal", "fade");
-expenseInfoView.setAttribute("id", "expenseInfoModal");
-expenseInfoView.setAttribute("tabindex", "-1");
-expenseInfoView.setAttribute("aria-labelledby", "expenseInfoModalLabel");
-expenseInfoView.setAttribute("aria-hidden", "true");
+let financialTransactionInfoView = document.createElement("div");
+financialTransactionInfoView.classList.add("modal", "fade");
+financialTransactionInfoView.setAttribute(
+  "id",
+  "financialTransactionInfoModal"
+);
+financialTransactionInfoView.setAttribute("tabindex", "-1");
+financialTransactionInfoView.setAttribute(
+  "aria-labelledby",
+  "financialTransactionInfoModalLabel"
+);
+financialTransactionInfoView.setAttribute("aria-hidden", "true");
 
-expenseInfoView.innerHTML = `<div class="modal-dialog">
+financialTransactionInfoView.innerHTML = `<div class="modal-dialog">
    <div class="modal-content">
      <div class="modal-header">
-       <h1 class="modal-title fs-5" id="expenseInfoModalLabel">
+       <h1 class="modal-title fs-5" id="financialTransactionInfoModalLabel">
        </h1>
        <button
          type="button"
