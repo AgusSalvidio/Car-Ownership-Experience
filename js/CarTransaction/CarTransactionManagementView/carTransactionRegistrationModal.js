@@ -42,10 +42,13 @@ carTransactionRegistrationView.innerHTML = `<div class="modal-dialog">
      <div class="container-fluid">
        <form id="carTransactionRegistrationForm">
        <div class="radio-toolbar text-center">
-          <input type="radio" id="radioInSale" name="radioCarTransaction" value="En venta">
-          <label for="radioInSale">En venta</label>
+          <input type="radio" id="radioInSale" name="radioCarTransaction" value="Pendiente">
+          <label for="radioInSale">Pendiente</label>
           <input type="radio" id="radioSold" name="radioCarTransaction" value="Vendido">
           <label for="radioSold">Vendido</label>
+        </div>
+        <div class="text-center">
+          <label for="radioCarTransaction" class="error"></label>
         </div>
         <div class="row">
           <div class="col-md-6">
@@ -157,13 +160,13 @@ function initializeRegisterCarTransactionButtonEventListener(
     const model = document.querySelector("#model").value;
     const year = document.querySelector("#year").value;
     const mileage = document.querySelector("#mileage").value;
-    const state = document.querySelector(
-      "input[name=radioCarTransaction]:checked"
-    ).value;
     const purchasePrice = document.querySelector("#purchasePrice").value;
     const salePrice = document.querySelector("#salePrice").value;
 
     if (formIsValid()) {
+      const state = document.querySelector(
+        "input[name=radioCarTransaction]:checked"
+      ).value;
       let car = new Car(manufacturer, model, parseInt(year), parseInt(mileage));
       let carTransaction = new CarTransaction(
         car,

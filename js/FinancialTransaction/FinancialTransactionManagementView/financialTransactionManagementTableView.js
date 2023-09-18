@@ -6,12 +6,18 @@ export {
   option,
   selectedObjectID,
   initializeDataTable,
+  updateOptionModalWith,
 };
 
 let dataTable;
 let dataTableInitialized = false;
 let selectedObjectID;
 let option;
+
+function updateOptionModalWith(anUpdatedOption) {
+  option = anUpdatedOption;
+}
+
 const dataTableOptions = {
   ordering: false,
   searching: false,
@@ -69,7 +75,7 @@ function initializeDataTable(applicationContext) {
     dataTableOptions
   );
   dataTableInitialized = true;
-  option = "";
+  updateOptionModalWith("");
 }
 
 function listFinancialTransactions(applicationContext) {
@@ -149,7 +155,7 @@ function initializeDataTableEventLister(applicationContext) {
     price.value = priceTable;
     notes.value = identifiedFinancialTransaction.notes;
 
-    option = "Edit";
+    updateOptionModalWith("Edit");
     selectedObjectID = idTable;
     let modalLabel = document.querySelector(
       "#financialTransactionRegistrationModalLabel"

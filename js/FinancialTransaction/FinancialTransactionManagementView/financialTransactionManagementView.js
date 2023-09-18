@@ -2,6 +2,7 @@ export { initializeFinancialTransactionNavButtonEventListener };
 import {
   financialTransactionManagementTableView,
   initializeDataTableEventLister,
+  updateOptionModalWith,
 } from "./financialTransactionManagementTableView.js";
 import {
   financialTransactionRegistrationView,
@@ -65,6 +66,7 @@ function initializeAddFinancialTransactionButtonEventListener(
     let modalLabel = document.querySelector(
       "#financialTransactionRegistrationModalLabel"
     );
+    updateOptionModalWith("");
     modalLabel.innerHTML = "Agregar Ingreso/Egreso";
     document.querySelector("#financialTransactionRegistrationForm").reset();
     modal.show();

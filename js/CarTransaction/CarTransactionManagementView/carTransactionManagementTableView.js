@@ -5,12 +5,18 @@ export {
   option,
   selectedObjectID,
   initializeDataTable,
+  updateOptionModalWith,
 };
 
 let dataTable;
 let dataTableInitialized = false;
 let selectedObjectID;
 let option;
+
+function updateOptionModalWith(anUpdatedOption) {
+  option = anUpdatedOption;
+}
+
 const dataTableOptions = {
   /*Need to research more to understand why the page refresh with only a few objects - asalvidio
   columnDefs: [{ orderable: false, targets: [5] }],*/
@@ -74,7 +80,7 @@ function initializeDataTable(applicationContext) {
     dataTableOptions
   );
   dataTableInitialized = true;
-  option = "";
+  updateOptionModalWith("");
 }
 
 function listCarTransactions(applicationContext) {
@@ -146,7 +152,7 @@ function initializeDataTableEventLister(applicationContext) {
     purchasePrice.value = purchasePriceTable;
     salePrice.value = salePriceTable;
 
-    option = "Edit";
+    updateOptionModalWith("Edit");
     selectedObjectID = idTable;
     let modalLabel = document.querySelector(
       "#carTransactionRegistrationModalLabel"

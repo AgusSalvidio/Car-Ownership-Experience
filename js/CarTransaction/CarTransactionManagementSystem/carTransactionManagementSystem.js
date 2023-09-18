@@ -75,7 +75,9 @@ class CarTransactionManagementSystem {
     this.refreshDatabaseStorage();
   }
   removeCarTransaction(aCarTransaction) {
-    this.carTransactionCollection.pop(aCarTransaction);
+    this.carTransactionCollection = this.carTransactionCollection.filter(
+      (transaction) => transaction !== aCarTransaction
+    );
     this.refreshDatabaseStorage();
   }
   updateCarTransaction(originalCarTransaction, updatedCarTransaction) {

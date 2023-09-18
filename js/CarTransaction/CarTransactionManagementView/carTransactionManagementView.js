@@ -5,6 +5,7 @@ export {
 import {
   carTransactionManagementTableView,
   initializeDataTableEventLister,
+  updateOptionModalWith,
 } from "./carTransactionManagementTableView.js";
 import {
   carTransactionRegistrationView,
@@ -68,6 +69,7 @@ function initializeAddCarTransactionButtonEventListener(applicationContext) {
     let modalLabel = document.querySelector(
       "#carTransactionRegistrationModalLabel"
     );
+    updateOptionModalWith("");
     modalLabel.innerHTML = "Agregar operación de auto";
     document.querySelector("#carTransactionRegistrationForm").reset();
     modal.show();

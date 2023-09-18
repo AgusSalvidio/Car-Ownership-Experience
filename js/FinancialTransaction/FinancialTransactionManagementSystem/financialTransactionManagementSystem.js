@@ -68,7 +68,10 @@ class FinancialTransactionManagementSystem {
     this.refreshDatabaseStorage();
   }
   removeFinancialTransaction(aFinancialTransaction) {
-    this.financialTransactionCollection.pop(aFinancialTransaction);
+    this.financialTransactionCollection =
+      this.financialTransactionCollection.filter(
+        (transaction) => transaction !== aFinancialTransaction
+      );
     this.refreshDatabaseStorage();
   }
   updateFinancialTransaction(
