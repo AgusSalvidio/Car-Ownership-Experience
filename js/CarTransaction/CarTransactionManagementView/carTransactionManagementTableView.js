@@ -1,7 +1,7 @@
 export {
-  carManagementTableView,
+  carTransactionManagementTableView,
   initializeDataTableEventLister,
-  listCars,
+  listCarTransactions,
   option,
   selectedObjectID,
   initializeDataTable,
@@ -22,9 +22,9 @@ const dataTableOptions = {
   destroy: true,
   language: {
     lengthMenu: "Mostrar _MENU_ registros por página",
-    zeroRecords: "Ningún auto encontrado",
+    zeroRecords: "Ninguna operación de auto encontrada",
     info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
-    infoEmpty: "Ningún auto encontrado",
+    infoEmpty: "Ninguna operación de auto encontrada",
     infoFiltered: "(filtrados desde _MAX_ registros totales)",
     search: "Buscar:",
     loadingRecords: "Cargando...",
@@ -37,13 +37,13 @@ const dataTableOptions = {
   },
 };
 
-let carManagementTableView = document.createElement("div");
-carManagementTableView.classList.add("px-1");
-carManagementTableView.innerHTML = `
+let carTransactionManagementTableView = document.createElement("div");
+carTransactionManagementTableView.classList.add("px-1");
+carTransactionManagementTableView.innerHTML = `
 <div class="row">
 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
 <table
-id="carManagement_dataTable"
+id="carTransactionManagement_dataTable"
 class=" table table-striped"
 >
 <thead>
@@ -53,10 +53,13 @@ class=" table table-striped"
     <th>Modelo</th>
     <th>Año</th>
     <th>Kilometraje</th>
+    <th>Estado</th>
+    <th>Precio compra</th>
+    <th>Precio venta</th>
     <th>Acciones</th>
   </tr>
 </thead>
-<tbody id="carManagement_tbody">
+<tbody id="carTransactionManagement_tbody">
 </tbody>
 </table>
 </div>
@@ -66,32 +69,39 @@ function initializeDataTable(applicationContext) {
   if (dataTableInitialized) {
     dataTable.destroy();
   }
-  listCars(applicationContext);
-  dataTable = $("#carManagement_dataTable").DataTable(dataTableOptions);
+  listCarTransactions(applicationContext);
+  dataTable = $("#carTransactionManagement_dataTable").DataTable(
+    dataTableOptions
+  );
   dataTableInitialized = true;
   option = "";
 }
 
-function listCars(applicationContext) {
-  const cars = applicationContext.carManagementSystem().cars();
+function listCarTransactions(applicationContext) {
+  const carTransactions = applicationContext
+    .carTransactionManagementSystem()
+    .carTransactions();
   let content = ``;
-  cars.forEach((car) => {
+  carTransactions.forEach((carTransaction) => {
     content += `
   <tr>
-    <td>${car.sequentialNumber}</td>
-    <td>${car.manufacturer}</td>
-    <td>${car.model}</td>
-    <td>${car.year}</td>
-    <td>${car.mileage}</td>
+    <td>${carTransaction.sequentialNumber}</td>
+    <td>${carTransaction.car.manufacturer}</td>
+    <td>${carTransaction.car.model}</td>
+    <td>${carTransaction.car.year}</td>
+    <td>${carTransaction.car.mileage}</td>
+    <td>${carTransaction.state}</td>
+    <td>${carTransaction.purchasePrice}</td>
+    <td>${carTransaction.salePrice}</td>
     <td>
-      <a id="editCarButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
-      <a id="removeCarButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
+      <a id="editCarTransactionButton" class="btn-sm "><i class="fa-regular fa-pen-to-square" ></i></a> 
+      <a id="removeCarTransactionButton" class="btn-sm "><i class="fa-solid fa-xmark" style="color:red"></i></a>
     </td>
   </tr>
   `;
   });
   // Its not necessary using document because its an ID and JS knows how to solve it (?)
-  carManagement_tbody.innerHTML = content;
+  carTransactionManagement_tbody.innerHTML = content;
 }
 
 function onTrigger(element, event, selector, handler) {
@@ -105,39 +115,53 @@ function onTrigger(element, event, selector, handler) {
 function initializeDataTableEventLister(applicationContext) {
   initializeDataTable(applicationContext);
 
-  onTrigger(document, "click", "#editCarButton", (e) => {
+  onTrigger(document, "click", "#editCarTransactionButton", (e) => {
     const row = e.target.parentNode.parentNode;
     const idTable = row.parentNode.children[0].innerHTML;
     const manufacturerTable = row.parentNode.children[1].innerHTML;
     const modelTable = row.parentNode.children[2].innerHTML;
     const yearTable = row.parentNode.children[3].innerHTML;
     const mileageTable = row.parentNode.children[4].innerHTML;
+    const stateTable = row.parentNode.children[5].innerHTML;
+    const purchasePriceTable = row.parentNode.children[6].innerHTML;
+    const salePriceTable = row.parentNode.children[7].innerHTML;
 
-    document.querySelector("#carRegistrationForm").reset();
+    document.querySelector("#carTransactionRegistrationForm").reset();
 
     const manufacturer = document.querySelector("#manufacturer");
     const model = document.querySelector("#model");
     const year = document.querySelector("#year");
     const mileage = document.querySelector("#mileage");
+    const purchasePrice = document.querySelector("#purchasePrice");
+    const salePrice = document.querySelector("#salePrice");
 
     manufacturer.value = manufacturerTable;
     model.value = modelTable;
     year.value = yearTable;
     mileage.value = mileageTable;
+    $(`input[name=radioCarTransaction][value=${stateTable}]`).prop(
+      "checked",
+      true
+    );
+    purchasePrice = purchasePriceTable;
+    salePrice = salePriceTable;
+
     option = "Edit";
     selectedObjectID = idTable;
-    let modalLabel = document.querySelector("#carRegistrationModalLabel");
-    modalLabel.innerHTML = "Editar auto";
-    $("#carRegistrationModal").modal("show");
+    let modalLabel = document.querySelector(
+      "#carTransactionRegistrationModalLabel"
+    );
+    modalLabel.innerHTML = "Editar operación de auto";
+    $("#carTransactionRegistrationModal").modal("show");
   });
-  onTrigger(document, "click", "#removeCarButton", (e) => {
+  onTrigger(document, "click", "#removeCarTransactionButton", (e) => {
     const row = e.target.parentNode.parentNode;
     const id = row.parentNode.firstElementChild.innerHTML;
-    const carToRemove = applicationContext
-      .carManagementSystem()
-      .carIdentifiedBy(id);
+    const carTransactionToRemove = applicationContext
+      .carTransactionManagementSystem()
+      .carTransactionIdentifiedBy(id);
     Swal.fire({
-      title: `¿Seguro que desea eliminar ${carToRemove.printOn()}?`,
+      title: `¿Seguro que desea eliminar ${carTransactionToRemove.printOn()}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#007ee5",
@@ -146,7 +170,9 @@ function initializeDataTableEventLister(applicationContext) {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        applicationContext.carManagementSystem().removeCar(carToRemove);
+        applicationContext
+          .carTransactionManagementSystem()
+          .removeCarTransaction(carTransactionToRemove);
         /*Render again only the table, because if i reload all the page, when i have more than one, then
         i will start all again, returning to the first loaded page. -asalvidio
         */
