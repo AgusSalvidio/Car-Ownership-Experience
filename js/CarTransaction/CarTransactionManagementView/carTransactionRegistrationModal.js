@@ -68,11 +68,11 @@ carTransactionRegistrationView.innerHTML = `<div class="modal-dialog">
             <input type="text" class="form-control" name="mileage" id="mileage" />
           </div>
           <div class="col-md-6">
-            <label for="purchasePrice" class="col-form-label">Precio de compra:</label>
+            <label for="purchasePrice" class="col-form-label">Precio de compra (ARS):</label>
             <input type="text" class="form-control" name="purchasePrice" id="purchasePrice" />
           </div>
           <div class="col-md-6">
-            <label for="salePrice" class="col-form-label">Precio de venta:</label>
+            <label for="salePrice" class="col-form-label">Precio de venta (ARS):</label>
             <input type="text" class="form-control" name="salePrice" id="salePrice" />
           </div>
         </div>

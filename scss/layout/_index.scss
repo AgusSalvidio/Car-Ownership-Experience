@@ -61,3 +61,24 @@
   @include images(50%, 300px, cover);
   border-radius: 50%;
 }
+
+.chart {
+  height: 25%;
+  width: 25%;
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+  justify-items: center;
+  align-items: center;
+}
+.grid-item {
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+}

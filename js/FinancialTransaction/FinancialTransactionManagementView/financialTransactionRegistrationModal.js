@@ -46,7 +46,7 @@ financialTransactionRegistrationView.innerHTML = `<div class="modal-dialog">
           <label for="radioWithdrawal">Egreso</label>
         </div>
          <div class="mb-3">
-           <label for="price" class="col-form-label">Precio:</label>
+           <label for="price" class="col-form-label">Precio(ARS):</label>
            <input type="text" class="form-control" name="price" id="price" />
          </div>
          <div class="mb-3">

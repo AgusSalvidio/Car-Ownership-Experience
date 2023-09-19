@@ -65,8 +65,9 @@ a:hover {
   padding: 10px;
   display: block;
   justify-content: space-between;
-  background-color: #333333;
+  background-color: #007ee5;
   color: #ffffff;
+  margin-top: 650px;
 }
 .footer p {
   margin-bottom: 0;
@@ -241,6 +242,28 @@ a:hover {
   height: 300px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+.chart {
+  height: 25%;
+  width: 25%;
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+  justify-items: center;
+  align-items: center;
+}
+
+.grid-item {
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
 }
 
 .animate-fadeInLeft {

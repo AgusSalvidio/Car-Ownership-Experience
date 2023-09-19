@@ -91,4 +91,36 @@ class FinancialTransactionManagementSystem {
   financialTransactions() {
     return this.financialTransactionCollection;
   }
+
+  deposits() {
+    return this.financialTransactionCollection.filter(
+      (transaction) => transaction.type === "Ingreso"
+    );
+  }
+
+  withdrawals() {
+    return this.financialTransactionCollection.filter(
+      (transaction) => transaction.type === "Egreso"
+    );
+  }
+
+  allDepositsValue() {
+    let totalDeposits = 0;
+    let deposits = this.deposits();
+    if (deposits.length) {
+      deposits.forEach((transaction) => (totalDeposits += transaction.price));
+    }
+    return totalDeposits;
+  }
+
+  allWithdrawalsValue() {
+    let totalWithdrawals = 0;
+    let withdrawals = this.withdrawals();
+    if (withdrawals.length) {
+      withdrawals.forEach(
+        (transaction) => (totalWithdrawals += transaction.price)
+      );
+    }
+    return totalWithdrawals;
+  }
 }
