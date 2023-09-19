@@ -61,7 +61,9 @@ carTransactionRegistrationView.innerHTML = `<div class="modal-dialog">
           </div>
           <div class="col-md-6">
             <label for="year" class="col-form-label">Año:</label>
-            <input type="text" class="form-control" name="year" id="year"/>
+            <select class="form-control" name="year" id="year"/>
+              <option label="Seleccione Año..." value="" disabled selected></option>
+            </select>
           </div>
           <div class="col-md-6">
             <label for="mileage" class="col-form-label">Kilometraje:</label>
@@ -97,8 +99,18 @@ carTransactionRegistrationView.innerHTML = `<div class="modal-dialog">
    `;
 
 function formIsValid() {
+  $.validator.addMethod(
+    "forSelect",
+    function (value, element, param) {
+      return value != "";
+    },
+    "Seleccionar año"
+  );
   $("#carTransactionRegistrationForm").validate({
     rules: {
+      year: {
+        forSelect: true,
+      },
       radioCarTransaction: {
         required: true,
       },
@@ -107,10 +119,6 @@ function formIsValid() {
       },
       model: {
         required: true,
-      },
-      year: {
-        required: true,
-        digits: true,
       },
       mileage: {
         required: true,
@@ -129,10 +137,6 @@ function formIsValid() {
       radioCarTransaction: { required: "Campo requerido." },
       manufacturer: { required: "Campo requerido." },
       model: { required: "Campo requerido." },
-      year: {
-        required: "Campo requerido.",
-        digits: "Ingrese un año válido.",
-      },
       mileage: {
         required: "Campo requerido.",
         digits: "Ingrese un kilometraje válido.",
