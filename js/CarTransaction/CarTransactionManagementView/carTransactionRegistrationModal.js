@@ -53,7 +53,9 @@ carTransactionRegistrationView.innerHTML = `<div class="modal-dialog">
         <div class="row">
           <div class="col-md-6">
             <label for="manufacturer" class="col-form-label">Marca:</label>
-            <input type="text" class="form-control" name="manufacturer" id="manufacturer" />
+            <select class="form-control" name="manufacturer" id="manufacturer"/>
+              <option label="Seleccione Marca..." value="" disabled selected></option>
+            </select>
           </div>
           <div class="col-md-6">
             <label for="model" class="col-form-label">Modelo:</label>
@@ -100,22 +102,29 @@ carTransactionRegistrationView.innerHTML = `<div class="modal-dialog">
 
 function formIsValid() {
   $.validator.addMethod(
-    "forSelect",
+    "forYearSelect",
     function (value, element, param) {
       return value != "";
     },
     "Seleccionar año"
   );
+  $.validator.addMethod(
+    "forManufacturerSelect",
+    function (value, element, param) {
+      return value != "";
+    },
+    "Seleccionar Marca"
+  );
   $("#carTransactionRegistrationForm").validate({
     rules: {
       year: {
-        forSelect: true,
+        forYearSelect: true,
       },
       radioCarTransaction: {
         required: true,
       },
       manufacturer: {
-        required: true,
+        forManufacturerSelect: true,
       },
       model: {
         required: true,
@@ -135,7 +144,6 @@ function formIsValid() {
     },
     messages: {
       radioCarTransaction: { required: "Campo requerido." },
-      manufacturer: { required: "Campo requerido." },
       model: { required: "Campo requerido." },
       mileage: {
         required: "Campo requerido.",

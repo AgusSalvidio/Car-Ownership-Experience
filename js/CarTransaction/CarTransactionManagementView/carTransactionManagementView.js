@@ -17,7 +17,6 @@ function initializeYearsDropdown() {
   let currentYear = new Date().getFullYear();
 
   let yearDropdown = document.querySelector("#year");
-  console.log(yearDropdown);
 
   for (let year = 1940; year <= currentYear; year++) {
     let option = document.createElement("option");
@@ -27,6 +26,23 @@ function initializeYearsDropdown() {
   }
 }
 
+function initializeManufacturersDropdown() {
+  let manufacturerDropdown = document.querySelector("#manufacturer");
+
+  let manufacturersURL = "https://parallelum.com.br/fipe/api/v1/carros/marcas";
+
+  fetch(manufacturersURL)
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((car) => {
+        let option = document.createElement("option");
+        option.value = car.nome;
+        option.text = car.nome;
+        manufacturerDropdown.appendChild(option);
+      });
+    });
+}
+
 function initializeCarTransactionManagementView(applicationContext) {
   let div = rootDiv();
   //These should be separeted initialize messages
@@ -34,6 +50,7 @@ function initializeCarTransactionManagementView(applicationContext) {
   div.append(carTransactionManagementView);
   div.append(carTransactionManagementTableView);
   initializeYearsDropdown();
+  initializeManufacturersDropdown();
   initializeEventListeners(applicationContext);
 }
 
