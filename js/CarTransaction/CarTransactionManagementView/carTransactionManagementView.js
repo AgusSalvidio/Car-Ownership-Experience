@@ -26,21 +26,24 @@ function initializeYearsDropdown() {
   }
 }
 
-function initializeManufacturersDropdown() {
+async function initializeManufacturersDropdown() {
   let manufacturerDropdown = document.querySelector("#manufacturer");
 
   let manufacturersURL = "https://parallelum.com.br/fipe/api/v1/carros/marcas";
 
-  fetch(manufacturersURL)
-    .then((response) => response.json())
-    .then((data) => {
-      data.forEach((car) => {
-        let option = document.createElement("option");
-        option.value = car.nome;
-        option.text = car.nome;
-        manufacturerDropdown.appendChild(option);
-      });
+  try {
+    const response = await fetch(manufacturersURL);
+    const data = await response.json();
+
+    data.forEach((car) => {
+      let option = document.createElement("option");
+      option.value = car.nome;
+      option.text = car.nome;
+      manufacturerDropdown.appendChild(option);
     });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function initializeCarTransactionManagementView(applicationContext) {
