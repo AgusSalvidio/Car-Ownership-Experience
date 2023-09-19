@@ -13,12 +13,47 @@ import {
 } from "./carTransactionRegistrationModal.js";
 import { rootDiv, unloadPreviousView } from "../../Utils/utils.js";
 
+function initializeYearsDropdown() {
+  let currentYear = new Date().getFullYear();
+
+  let yearDropdown = document.querySelector("#year");
+
+  for (let year = 1940; year <= currentYear; year++) {
+    let option = document.createElement("option");
+    option.value = year;
+    option.text = year;
+    yearDropdown.appendChild(option);
+  }
+}
+
+async function initializeManufacturersDropdown() {
+  let manufacturerDropdown = document.querySelector("#manufacturer");
+
+  let manufacturersURL = "https://parallelum.com.br/fipe/api/v1/carros/marcas";
+
+  try {
+    const response = await fetch(manufacturersURL);
+    const data = await response.json();
+
+    data.forEach((car) => {
+      let option = document.createElement("option");
+      option.value = car.nome;
+      option.text = car.nome;
+      manufacturerDropdown.appendChild(option);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function initializeCarTransactionManagementView(applicationContext) {
   let div = rootDiv();
   //These should be separeted initialize messages
   div.append(carTransactionRegistrationView);
   div.append(carTransactionManagementView);
   div.append(carTransactionManagementTableView);
+  initializeYearsDropdown();
+  initializeManufacturersDropdown();
   initializeEventListeners(applicationContext);
 }
 
