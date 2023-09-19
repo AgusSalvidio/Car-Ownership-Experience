@@ -60,8 +60,8 @@ class=" table table-striped"
     <th>Año</th>
     <th>Kilometraje</th>
     <th>Estado</th>
-    <th>Precio compra</th>
-    <th>Precio venta</th>
+    <th>Precio compra (ARS)</th>
+    <th>Precio venta (ARS)</th>
     <th>Acciones</th>
   </tr>
 </thead>

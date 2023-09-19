@@ -55,7 +55,7 @@ class=" table table-striped"
   <tr>
     <th>ID</th>
     <th>Tipo</th>
-    <th>Precio</th>
+    <th>Precio (ARS)</th>
     <th>Notas</th>
     <th>Acciones</th>
   </tr>

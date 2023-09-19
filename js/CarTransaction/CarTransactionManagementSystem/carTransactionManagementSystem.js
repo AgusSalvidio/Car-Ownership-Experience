@@ -92,4 +92,44 @@ class CarTransactionManagementSystem {
   carTransactions() {
     return this.carTransactionCollection;
   }
+  forSaleCars() {
+    return this.carTransactionCollection.filter(
+      (transaction) => transaction.state === "Pendiente"
+    );
+  }
+  forSaleCarAmount() {
+    return this.forSaleCars().length;
+  }
+  soldCars() {
+    return this.carTransactionCollection.filter(
+      (transaction) => transaction.state === "Vendido"
+    );
+  }
+  soldCarAmount() {
+    return this.soldCars().length;
+  }
+
+  allForSaleCarValue() {
+    let totalForSaleValue = 0;
+    let forSaleCars = this.forSaleCars();
+    if (forSaleCars.length) {
+      forSaleCars.forEach(
+        (carTransaction) => (totalForSaleValue += carTransaction.purchasePrice)
+      );
+    }
+    return totalForSaleValue;
+  }
+
+  allSoldCarValue() {
+    let totalSoldValue = 0;
+    let soldCars = this.soldCars();
+    if (soldCars.length) {
+      soldCars.forEach(
+        (carTransaction) =>
+          (totalSoldValue +=
+            carTransaction.salePrice - carTransaction.purchasePrice)
+      );
+    }
+    return totalSoldValue;
+  }
 }
